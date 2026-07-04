@@ -1,4 +1,4 @@
-# mason-family-hq
+# hyatt-family-hq
 
 ## Conventions for agents
 
@@ -17,3 +17,9 @@
   logs, and runtime logs. Agents never mutate Vercel: deploys happen via git push (auto-deploy),
   env vars change in the dashboard. Mutating `vercel` CLI commands are blocked by
   `.claude/hooks/block-vercel-writes.js`; read forms (`vercel ls/logs/inspect/whoami`) are fine.
+
+## Documented Solutions
+
+`docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow
+patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`).
+Relevant when implementing or debugging in documented areas.
