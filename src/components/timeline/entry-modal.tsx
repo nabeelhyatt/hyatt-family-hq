@@ -16,8 +16,8 @@ import {
   MAX_UPLOAD_BYTES,
   detectMediaType,
   uploadTimelineMedia,
-} from "@/lib/journal/photo-upload";
-import { readImageDateTaken } from "@/lib/journal/image-date";
+} from "@/lib/media/photo-upload";
+import { readImageDateTaken } from "@/lib/media/image-date";
 import {
   TimelineDatePicker,
   dateStateFromEntry,

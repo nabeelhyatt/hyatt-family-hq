@@ -39,7 +39,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Toast, ToastViewport } from "@/components/ui/toast";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import { firstNameOf } from "@/components/todos/member-name";
 import type { TodoArea, TodoMember, TodoProject } from "@/lib/todos/types";
 import { cn } from "@/lib/utils";

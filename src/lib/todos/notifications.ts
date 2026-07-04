@@ -1,7 +1,7 @@
 import "server-only";
 
 import type { createClient } from "@/lib/supabase/server";
-import type { JournalNotification } from "@/lib/types";
+import type { AppNotification } from "@/lib/types";
 import { getTodoMembers } from "@/lib/todos/queries";
 
 type Supabase = Awaited<ReturnType<typeof createClient>>;
@@ -14,7 +14,7 @@ type Supabase = Awaited<ReturnType<typeof createClient>>;
 export async function getTodoNotifications(
   supabase: Supabase,
   userId: string
-): Promise<JournalNotification[]> {
+): Promise<AppNotification[]> {
   const { data: memberRow } = await supabase
     .from("family_members")
     .select("email")

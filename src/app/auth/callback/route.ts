@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { Session } from "@supabase/supabase-js";
 import { supabaseUrl, supabaseAnonKey } from "@/lib/supabase/config";
-import { ensureProvisioned } from "@/lib/journal/provisioning";
+import { ensureProvisioned } from "@/lib/members/provisioning";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 // Google access tokens last ~1h; we don't get the exact expiry in the session, so
@@ -73,8 +73,7 @@ export async function GET(request: Request) {
         data: { user },
       } = await supabase.auth.getUser();
 
-      // Family allowlist: only emails the owner has added may sign in. First
-      // sign-in also seeds the member's per-user journal.
+      // Family allowlist: only emails the owner has added may sign in.
       const membership = user
         ? await ensureProvisioned(user)
         : { allowed: false as const };

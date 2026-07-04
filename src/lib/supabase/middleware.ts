@@ -54,17 +54,9 @@ export async function updateSession(request: NextRequest) {
     // called by the Apple Reminders Shortcut and Raycast, which have no
     // session) — see src/app/api/todo/ingest/route.ts.
     !request.nextUrl.pathname.startsWith("/api/todo/ingest") &&
-    // The reading ingest endpoint authenticates with a personal API token (it's
-    // called by the Chrome article-capture extension, which has no session) —
-    // see src/app/api/reading/ingest/route.ts.
-    !request.nextUrl.pathname.startsWith("/api/reading/ingest") &&
     // The agent API authenticates with a bearer secret (it's called by the
     // family assistant, which has no session) — see src/lib/agent/auth.ts.
-    !request.nextUrl.pathname.startsWith("/api/agent") &&
-    // The practice-session result callback authenticates with WORKER_SECRET
-    // (it's POSTed by the Modal alignment worker, which has no session) — see
-    // src/app/practice/session/api/callback/route.ts.
-    !request.nextUrl.pathname.startsWith("/practice/session/api/callback")
+    !request.nextUrl.pathname.startsWith("/api/agent")
   ) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
@@ -75,22 +67,6 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/home";
     return NextResponse.redirect(url);
-  }
-
-  // The practice book is owner-only. Resolve the role from the membership table
-  // (authoritative, and /practice is owner-only/low-traffic so the extra lookup
-  // is negligible). RLS scopes the read to the caller's own row.
-  if (userId && request.nextUrl.pathname.startsWith("/practice")) {
-    const { data: membership } = await supabase
-      .from("family_members")
-      .select("role")
-      .eq("user_id", userId)
-      .maybeSingle();
-    if (membership?.role !== "owner") {
-      const url = request.nextUrl.clone();
-      url.pathname = "/home";
-      return NextResponse.redirect(url);
-    }
   }
 
   return supabaseResponse;

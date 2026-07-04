@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   // template only reaches pages outside an app group (e.g. /login), and the
   // default covers pages with no title at all.
   title: {
-    default: "Mason Family HQ",
-    template: "%s · Mason Family HQ",
+    default: "Hyatt Family HQ",
+    template: "%s · Hyatt Family HQ",
   },
-  description: "The Mason family's private home base",
-  applicationName: "Mason Family HQ",
+  description: "The Hyatt family's private home base",
+  applicationName: "Hyatt Family HQ",
   // Makes the iPhone home-screen launch run standalone (no Safari chrome) with
   // a translucent status bar, the right home-screen label, and a cream launch
   // screen instead of iOS's default white flash. Each app's layout overrides

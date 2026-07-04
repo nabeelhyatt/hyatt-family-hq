@@ -18,9 +18,8 @@ import { cn } from "@/lib/utils";
  * Global quick-add: the new-to-do modal is mounted once (root layout, via
  * global-quick-add.tsx) and summoned from anywhere — press `c` (Gmail/Linear's
  * create key; single letters never collide with Chrome's shortcuts) or
- * dispatch the window event via emitQuickAdd() / <QuickAddButton>. The same
- * window-event pattern as src/lib/optimistic-task.ts, so openers don't need
- * a shared React context across layouts.
+ * dispatch the window event via emitQuickAdd() / <QuickAddButton>, so
+ * openers don't need a shared React context across layouts.
  *
  * Views that create in place (bucket views, project pages) own `c` instead —
  * their task list marks itself with data-inline-new and the key handler here

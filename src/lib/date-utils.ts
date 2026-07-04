@@ -101,3 +101,11 @@ export async function resolveTimezone(clientTz?: string | null): Promise<string>
   if (isValidTimeZone(clientTz)) return clientTz;
   return getUserTimezone();
 }
+
+/** Today's date (YYYY-MM-DD) in the current user's timezone. Relocated from
+ * src/lib/journal/today.ts when the journal module was removed — todos is
+ * its only remaining caller. */
+export async function todayLocal(): Promise<string> {
+  const tz = await getUserTimezone();
+  return localDate(new Date(), tz);
+}

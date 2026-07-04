@@ -1,20 +1,15 @@
--- Local-dev only: the full family as confirmed auth users (Andrew the owner, plus
--- Jenny, Oscar, and Sebastian) so that `supabase db reset` can attribute the demo
--- journal entries (05_journal_entries, 06_family_journal) without anyone signing
--- in first, and so you can dev-login as any of them (/auth/dev-login?email=…).
+-- Local-dev only: the full Hyatt family as confirmed auth users (Nabeel the
+-- owner, plus Megan, Kaden, and Liam) so you can dev-login as any of them
+-- (/auth/dev-login?email=…) without signing in first.
 --
--- Seeds run only on `supabase db reset` and in CI — never on a production deploy
--- (migrations are pushed without seeds) — so these manufactured users stay out of
--- prod. Each is a complete GoTrue user (users row + email identity) mirroring what
--- /auth/dev-login creates via the admin API; dev-login stays compatible because it
--- finds them by email and reuses them.
+-- Seeds run only on `supabase db reset` and in CI — never on a production
+-- deploy (migrations are pushed without seeds) — so these manufactured users
+-- stay out of prod. Each is a complete GoTrue user (users row + email
+-- identity) mirroring what /auth/dev-login creates via the admin API;
+-- dev-login stays compatible because it finds them by email and reuses them.
 --
--- Per-member journals (question types, agent files, settings) are still provisioned
--- on first dev-login: we link family_members.user_id but leave seeded_at NULL,
--- the exact pre-sign-in state ensureProvisioned expects.
---
--- The uuids are hardcoded only because these are throwaway local fixtures (stable
--- across resets); production never runs this file.
+-- The uuids are hardcoded only because these are throwaway local fixtures
+-- (stable across resets); production never runs this file.
 
 DO $$
 DECLARE
@@ -22,13 +17,13 @@ DECLARE
   resolved uuid;
 BEGIN
   FOR m IN
-    -- Official per-member colors (00105): Andrew blue, Jenny purple, Oscar green,
-    -- Sebastian orange. These are what the Calendar columns/accents key off.
+    -- Official per-member colors (00105): these are what the Calendar
+    -- columns/accents key off.
     SELECT * FROM (VALUES
-      ('andrew@mason.io',    'Andrew',    'owner',  'a0000000-0000-4000-8000-000000000001'::uuid, '#2563eb'),
-      ('jenny@mason.io',     'Jenny',     'parent', 'a0000000-0000-4000-8000-000000000002'::uuid, '#7c3aed'),
-      ('oscar@mason.io',     'Oscar',     'kid',    'a0000000-0000-4000-8000-000000000003'::uuid, '#16a34a'),
-      ('sebastian@mason.io', 'Sebastian', 'kid',    'a0000000-0000-4000-8000-000000000004'::uuid, '#ea580c')
+      ('nabeelo@gmail.com',       'Nabeel', 'owner',  'a0000000-0000-4000-8000-000000000001'::uuid, '#2563eb'),
+      ('mhyatt@gmail.com',        'Megan',  'parent', 'a0000000-0000-4000-8000-000000000002'::uuid, '#7c3aed'),
+      ('kadenhyatt@gmail.com',    'Kaden',  'kid',    'a0000000-0000-4000-8000-000000000003'::uuid, '#16a34a'),
+      ('thisliamhyatt@gmail.com', 'Liam',   'kid',    'a0000000-0000-4000-8000-000000000004'::uuid, '#ea580c')
     ) AS v(email, name, role, uid, color)
   LOOP
     IF NOT EXISTS (SELECT 1 FROM auth.users WHERE email = m.email) THEN
@@ -60,10 +55,8 @@ BEGIN
 
     SELECT id INTO resolved FROM auth.users WHERE email = m.email;
 
-    -- Upsert the membership row. The owner row already exists from migration 00051
-    -- (renamed to family_members in 00086; NULL user_id on a fresh DB); the others
-    -- are inserted. seeded_at is
-    -- left untouched so each member's first dev-login still provisions their journal.
+    -- Upsert the membership row. The owner row already exists from migration
+    -- 00156 (NULL user_id on a fresh DB); the others are inserted there too.
     INSERT INTO family_members (email, user_id, name, role, color)
     VALUES (m.email, resolved, m.name, m.role, m.color)
     ON CONFLICT (email) DO UPDATE
