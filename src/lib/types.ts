@@ -1,5 +1,3 @@
-import type { CategoryContextSpec } from "@/lib/journal/question-sources";
-
 // Enums matching database
 export type PieceStatus = "active" | "upcoming" | "archived";
 export type PieceKind = "piece" | "technique" | "sight_reading";
@@ -457,26 +455,6 @@ export type JournalAgentFile = {
   updated_at: string;
 };
 
-export type JournalQuestionType = {
-  id: string;
-  name: string; // kebab-case identifier
-  base_description: string;
-  style_note: string;
-  weight: number;
-  enabled: boolean;
-  is_builtin: boolean;
-  sort_order: number;
-  /** Recurring posts: the rolling cadence in days. Null = ordinary rotation type.
-   * A recurring type is excluded from the random daily sampler and instead nudged
-   * via a notification when its interval lapses. */
-  recurrence_days: number | null;
-  /** Recurring posts: the user's chosen context sources, overriding the name-based
-   * default. Null falls back to specFor(name). See question-sources.ts. */
-  context_spec: CategoryContextSpec | null;
-  created_at: string;
-  updated_at: string;
-};
-
 export type JournalSettings = {
   questions_per_day: number;
 };
@@ -668,16 +646,9 @@ export type TimelineEntry = {
   updated_at: string;
 };
 
-/** A journal entry that links to a timeline event (for the popover's list). */
-export type TimelineLinkedPost = {
-  id: string;
-  title: string | null;
-  summary: string | null;
-  entry_date: string;
-  authorName: string | null;
-};
-
-/** A photo (or video) pinned directly to a timeline event (no journal post). */
+/** A photo (or video) pinned directly to a timeline event. Trimmed when the
+ * journal module was removed — TimelineLinkedPost (journal entries linking to
+ * an event) is gone along with journal_entries. */
 export type TimelineEntryPhoto = {
   id: string;
   displayUrl: string;
@@ -690,14 +661,10 @@ export type TimelineEntryPhoto = {
 export type TimelineEntryWithPeople = TimelineEntry & {
   subjects: TimelinePerson[];
   mentions: TimelinePerson[];
-  /** Journal entries visible to the viewer that link to this event. */
-  linkedCount: number;
-  /** Those linked journal entries, newest first (for the hover popover). */
-  linkedPosts: TimelineLinkedPost[];
   /** Photos pinned directly to this event (visible to the viewer), newest last. */
   photos: TimelineEntryPhoto[];
-  /** A signed display URL for a representative photo — the first directly-pinned
-   * photo, else one from a linked journal entry. Drives the timeline card's image. */
+  /** A signed display URL for the first directly-pinned photo. Drives the
+   * timeline card's image. */
   coverPhotoUrl: string | null;
   /** When the cover is a video, its signed playback URL (the poster is `coverPhotoUrl`). */
   coverVideoUrl: string | null;
@@ -758,22 +725,23 @@ export type JournalEntryView = {
 };
 
 /**
- * One item in the notification dropdown. `reason` is the human label ("New post",
- * "2 new comments", or a recurring post's "Due — last posted 34 days ago").
- * `href` is where clicking navigates: an entry page for unread family posts, or
- * the new-post flow for a due recurring post. `id` is a stable React key.
+ * One item in the notification dropdown. `reason` is the human label (e.g.
+ * "To-do from Megan"). `href` is where clicking navigates. `id` is a stable
+ * React key. Renamed from Journal(Notification|Notifications) when the
+ * journal module — the original source of these — was removed; Todos is now
+ * the only contributor.
  */
-export type JournalNotification = {
+export type AppNotification = {
   id: string;
   title: string;
   reason: string;
   href: string;
 };
 
-/** The header badge's data: the unread posts and their count (== items.length). */
-export type JournalNotifications = {
+/** The header badge's data: pending notifications and their count (== items.length). */
+export type AppNotifications = {
   count: number;
-  items: JournalNotification[];
+  items: AppNotification[];
 };
 
 export type JournalMemoryProposal = {

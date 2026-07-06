@@ -48,21 +48,21 @@ INSERT INTO calendar_sources
    google_calendar_id, google_connection_email,
    ics_url, teamsnap_team_id, teamsnap_team_name, teamsnap_player_member_id)
 VALUES
-  ('c0000109-0000-4001-8001-000000000001', 'andrew@mason.io', 'google', 'Personal',
-   'andrew@mason.io', 'andrew@mason.io', NULL, NULL, NULL, NULL),
-  ('c0000109-0000-4001-8001-000000000002', 'andrew@mason.io', 'google', 'Work',
-   'andrew.work@example.com', 'andrew@mason.io', NULL, NULL, NULL, NULL),
-  ('c0000109-0000-4001-8001-000000000003', 'jenny@mason.io', 'google', 'Personal',
-   'jenny@mason.io', 'jenny@mason.io', NULL, NULL, NULL, NULL),
-  ('c0000109-0000-4001-8001-000000000004', 'jenny@mason.io', 'google', 'Work',
-   'jenny.work@example.com', 'jenny@mason.io', NULL, NULL, NULL, NULL),
-  ('c0000109-0000-4001-8001-000000000005', 'oscar@mason.io', 'teamsnap', 'Thunder FC',
+  ('c0000109-0000-4001-8001-000000000001', 'nabeelo@gmail.com', 'google', 'Personal',
+   'nabeelo@gmail.com', 'nabeelo@gmail.com', NULL, NULL, NULL, NULL),
+  ('c0000109-0000-4001-8001-000000000002', 'nabeelo@gmail.com', 'google', 'Work',
+   'andrew.work@example.com', 'nabeelo@gmail.com', NULL, NULL, NULL, NULL),
+  ('c0000109-0000-4001-8001-000000000003', 'mhyatt@gmail.com', 'google', 'Personal',
+   'mhyatt@gmail.com', 'mhyatt@gmail.com', NULL, NULL, NULL, NULL),
+  ('c0000109-0000-4001-8001-000000000004', 'mhyatt@gmail.com', 'google', 'Work',
+   'jenny.work@example.com', 'mhyatt@gmail.com', NULL, NULL, NULL, NULL),
+  ('c0000109-0000-4001-8001-000000000005', 'kadenhyatt@gmail.com', 'teamsnap', 'Thunder FC',
    NULL, NULL, NULL, 900001, 'Thunder FC U12', 800001),
-  ('c0000109-0000-4001-8001-000000000006', 'oscar@mason.io', 'ics', 'Berkeley Elementary',
+  ('c0000109-0000-4001-8001-000000000006', 'kadenhyatt@gmail.com', 'ics', 'Berkeley Elementary',
    NULL, NULL, 'https://example.com/oscar-school.ics', NULL, NULL, NULL),
-  ('c0000109-0000-4001-8001-000000000007', 'sebastian@mason.io', 'teamsnap', 'Bay Bombers',
+  ('c0000109-0000-4001-8001-000000000007', 'thisliamhyatt@gmail.com', 'teamsnap', 'Bay Bombers',
    NULL, NULL, NULL, 900002, 'Bay Bombers 10U', 800002),
-  ('c0000109-0000-4001-8001-000000000008', 'sebastian@mason.io', 'ics', 'Berkeley Elementary',
+  ('c0000109-0000-4001-8001-000000000008', 'thisliamhyatt@gmail.com', 'ics', 'Berkeley Elementary',
    NULL, NULL, 'https://example.com/sebastian-school.ics', NULL, NULL, NULL),
   ('c0000109-0000-4001-8001-000000000009', NULL, 'manual', 'Family',
    NULL, NULL, NULL, NULL, NULL, NULL);
@@ -74,7 +74,7 @@ VALUES
 -- Andrew: CrossFit, Mon/Wed/Fri mornings (dow 1,3,5).
 INSERT INTO calendar_events
   (member_email, calendar_source_id, title, location, start_time, end_time, source_type, external_id)
-SELECT 'andrew@mason.io', 'c0000109-0000-4001-8001-000000000001', 'CrossFit', 'CrossFit Berkeley',
+SELECT 'nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000001', 'CrossFit', 'CrossFit Berkeley',
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '06:00') AT TIME ZONE 'America/Los_Angeles'),
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '07:00') AT TIME ZONE 'America/Los_Angeles'),
        'google', 'seeddev:a-crossfit:' || d
@@ -84,7 +84,7 @@ WHERE extract(dow from ((now() AT TIME ZONE 'America/Los_Angeles')::date + d)) I
 -- Andrew: work standup, weekdays (dow 1-5).
 INSERT INTO calendar_events
   (member_email, calendar_source_id, title, start_time, end_time, source_type, external_id)
-SELECT 'andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', 'Standup',
+SELECT 'nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', 'Standup',
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '09:30') AT TIME ZONE 'America/Los_Angeles'),
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '09:45') AT TIME ZONE 'America/Los_Angeles'),
        'google', 'seeddev:a-standup:' || d
@@ -94,7 +94,7 @@ WHERE extract(dow from ((now() AT TIME ZONE 'America/Los_Angeles')::date + d)) I
 -- Jenny: yoga, Tue/Thu mornings (dow 2,4).
 INSERT INTO calendar_events
   (member_email, calendar_source_id, title, location, start_time, end_time, source_type, external_id)
-SELECT 'jenny@mason.io', 'c0000109-0000-4001-8001-000000000003', 'Yoga', 'Namaste Studio',
+SELECT 'mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000003', 'Yoga', 'Namaste Studio',
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '07:00') AT TIME ZONE 'America/Los_Angeles'),
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '08:00') AT TIME ZONE 'America/Los_Angeles'),
        'google', 'seeddev:j-yoga:' || d
@@ -105,7 +105,7 @@ WHERE extract(dow from ((now() AT TIME ZONE 'America/Los_Angeles')::date + d)) I
 -- "needs RSVP" pill on the nearest sessions and answered states later.
 INSERT INTO calendar_events
   (member_email, calendar_source_id, title, location, start_time, end_time, source_type, external_id, teamsnap_rsvp, teamsnap_is_game)
-SELECT 'oscar@mason.io', 'c0000109-0000-4001-8001-000000000005', 'Soccer Practice', 'Cedar Rose Park',
+SELECT 'kadenhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000005', 'Soccer Practice', 'Cedar Rose Park',
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '16:30') AT TIME ZONE 'America/Los_Angeles'),
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '18:00') AT TIME ZONE 'America/Los_Angeles'),
        'teamsnap', 'seeddev:o-soccer-practice:' || d,
@@ -116,7 +116,7 @@ WHERE extract(dow from ((now() AT TIME ZONE 'America/Los_Angeles')::date + d)) I
 -- Sebastian: baseball practice, Mon/Wed afternoons.
 INSERT INTO calendar_events
   (member_email, calendar_source_id, title, location, start_time, end_time, source_type, external_id, teamsnap_rsvp, teamsnap_is_game)
-SELECT 'sebastian@mason.io', 'c0000109-0000-4001-8001-000000000007', 'Baseball Practice', 'San Pablo Park',
+SELECT 'thisliamhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000007', 'Baseball Practice', 'San Pablo Park',
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '16:00') AT TIME ZONE 'America/Los_Angeles'),
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + time '17:30') AT TIME ZONE 'America/Los_Angeles'),
        'teamsnap', 'seeddev:s-baseball-practice:' || d,
@@ -149,44 +149,44 @@ SELECT m, src::uuid, title, loc,
        ad, st::calendar_source_type, ext
 FROM (VALUES
   -- Andrew (work + personal). Budget Review + Pickup deliberately overlap → conflict badge.
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', 'Quarterly Board Meeting', '101 California St, SF', 1, time '10:00', time '12:00', false, 'google', 'seeddev:a-board'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', '1:1 with Priya', NULL, 2, time '11:00', time '11:30', false, 'google', 'seeddev:a-1on1'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', 'Budget Review', NULL, 3, time '14:00', time '15:00', false, 'google', 'seeddev:a-budget'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000001', 'Pick up kids from school', 'Berkeley Elementary', 3, time '14:30', time '15:15', false, 'google', 'seeddev:a-pickup'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000001', 'Dentist', 'Berkeley Dental Care', 5, time '08:00', time '09:00', false, 'google', 'seeddev:a-dentist'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', 'Investor lunch', 'Chez Panisse', 8, time '12:30', time '14:00', false, 'google', 'seeddev:a-investor'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000001', 'Haircut', NULL, 11, time '17:30', time '18:00', false, 'google', 'seeddev:a-haircut'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', 'Offsite planning', 'Tahoe', 24, time '09:00', time '17:00', false, 'google', 'seeddev:a-offsite'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', 'Q2 Planning', NULL, -9, time '13:00', time '15:00', false, 'google', 'seeddev:a-q2'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000001', 'Half marathon', 'Golden Gate Park', -23, time '08:00', time '11:00', false, 'google', 'seeddev:a-marathon'),
-  ('andrew@mason.io', 'c0000109-0000-4001-8001-000000000002', 'Conference: AI Summit', 'Las Vegas', 45, time '09:00', time '17:00', false, 'google', 'seeddev:a-conf'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', 'Quarterly Board Meeting', '101 California St, SF', 1, time '10:00', time '12:00', false, 'google', 'seeddev:a-board'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', '1:1 with Priya', NULL, 2, time '11:00', time '11:30', false, 'google', 'seeddev:a-1on1'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', 'Budget Review', NULL, 3, time '14:00', time '15:00', false, 'google', 'seeddev:a-budget'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000001', 'Pick up kids from school', 'Berkeley Elementary', 3, time '14:30', time '15:15', false, 'google', 'seeddev:a-pickup'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000001', 'Dentist', 'Berkeley Dental Care', 5, time '08:00', time '09:00', false, 'google', 'seeddev:a-dentist'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', 'Investor lunch', 'Chez Panisse', 8, time '12:30', time '14:00', false, 'google', 'seeddev:a-investor'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000001', 'Haircut', NULL, 11, time '17:30', time '18:00', false, 'google', 'seeddev:a-haircut'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', 'Offsite planning', 'Tahoe', 24, time '09:00', time '17:00', false, 'google', 'seeddev:a-offsite'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', 'Q2 Planning', NULL, -9, time '13:00', time '15:00', false, 'google', 'seeddev:a-q2'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000001', 'Half marathon', 'Golden Gate Park', -23, time '08:00', time '11:00', false, 'google', 'seeddev:a-marathon'),
+  ('nabeelo@gmail.com', 'c0000109-0000-4001-8001-000000000002', 'Conference: AI Summit', 'Las Vegas', 45, time '09:00', time '17:00', false, 'google', 'seeddev:a-conf'),
 
   -- Jenny (work + personal).
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000004', 'Client workshop', 'Downtown Oakland', 1, time '13:00', time '16:00', false, 'google', 'seeddev:j-workshop'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000003', 'OB-GYN appointment', 'Alta Bates', 2, time '09:30', time '10:30', false, 'google', 'seeddev:j-dr'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000003', 'Coffee with Megan', 'Philz Coffee', 4, time '10:00', time '11:00', false, 'google', 'seeddev:j-coffee'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000004', 'Design review', NULL, 6, time '15:00', time '16:00', false, 'google', 'seeddev:j-design'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000003', 'Book club', 'Lucy''s house', 9, time '19:00', time '21:00', false, 'google', 'seeddev:j-bookclub'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000003', 'Parent-teacher conference', 'Berkeley Elementary', 12, time '16:00', time '16:30', false, 'google', 'seeddev:j-ptc'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000004', 'Team retro', NULL, 13, time '11:00', time '12:00', false, 'google', 'seeddev:j-retro'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000003', 'Hair appointment', NULL, 20, time '14:00', time '15:30', false, 'google', 'seeddev:j-hair'),
-  ('jenny@mason.io', 'c0000109-0000-4001-8001-000000000003', 'Girls'' weekend', 'Sonoma', -15, time '10:00', time '18:00', false, 'google', 'seeddev:j-getaway'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000004', 'Client workshop', 'Downtown Oakland', 1, time '13:00', time '16:00', false, 'google', 'seeddev:j-workshop'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000003', 'OB-GYN appointment', 'Alta Bates', 2, time '09:30', time '10:30', false, 'google', 'seeddev:j-dr'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000003', 'Coffee with Megan', 'Philz Coffee', 4, time '10:00', time '11:00', false, 'google', 'seeddev:j-coffee'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000004', 'Design review', NULL, 6, time '15:00', time '16:00', false, 'google', 'seeddev:j-design'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000003', 'Book club', 'Lucy''s house', 9, time '19:00', time '21:00', false, 'google', 'seeddev:j-bookclub'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000003', 'Parent-teacher conference', 'Berkeley Elementary', 12, time '16:00', time '16:30', false, 'google', 'seeddev:j-ptc'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000004', 'Team retro', NULL, 13, time '11:00', time '12:00', false, 'google', 'seeddev:j-retro'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000003', 'Hair appointment', NULL, 20, time '14:00', time '15:30', false, 'google', 'seeddev:j-hair'),
+  ('mhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000003', 'Girls'' weekend', 'Sonoma', -15, time '10:00', time '18:00', false, 'google', 'seeddev:j-getaway'),
 
   -- Oscar (school + activities).
-  ('oscar@mason.io', 'c0000109-0000-4001-8001-000000000006', 'Field trip: Exploratorium', 'San Francisco', 4, time '09:00', time '14:00', false, 'ics', 'seeddev:o-fieldtrip'),
-  ('oscar@mason.io', 'c0000109-0000-4001-8001-000000000006', 'Spring concert', 'Berkeley Elementary', 10, time '18:30', time '19:30', false, 'ics', 'seeddev:o-concert'),
-  ('oscar@mason.io', NULL, 'Piano lesson', 'Ms. Tanaka''s', 2, time '17:00', time '17:45', false, 'manual', 'seeddev:o-piano-1'),
-  ('oscar@mason.io', NULL, 'Piano lesson', 'Ms. Tanaka''s', 9, time '17:00', time '17:45', false, 'manual', 'seeddev:o-piano-2'),
-  ('oscar@mason.io', NULL, 'Birthday party (Liam)', 'Adventure Playground', 7, time '14:00', time '16:00', false, 'manual', 'seeddev:o-bday'),
-  ('oscar@mason.io', NULL, 'Dentist checkup', 'Berkeley Dental Care', 15, time '15:30', time '16:15', false, 'manual', 'seeddev:o-dentist'),
+  ('kadenhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000006', 'Field trip: Exploratorium', 'San Francisco', 4, time '09:00', time '14:00', false, 'ics', 'seeddev:o-fieldtrip'),
+  ('kadenhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000006', 'Spring concert', 'Berkeley Elementary', 10, time '18:30', time '19:30', false, 'ics', 'seeddev:o-concert'),
+  ('kadenhyatt@gmail.com', NULL, 'Piano lesson', 'Ms. Tanaka''s', 2, time '17:00', time '17:45', false, 'manual', 'seeddev:o-piano-1'),
+  ('kadenhyatt@gmail.com', NULL, 'Piano lesson', 'Ms. Tanaka''s', 9, time '17:00', time '17:45', false, 'manual', 'seeddev:o-piano-2'),
+  ('kadenhyatt@gmail.com', NULL, 'Birthday party (Liam)', 'Adventure Playground', 7, time '14:00', time '16:00', false, 'manual', 'seeddev:o-bday'),
+  ('kadenhyatt@gmail.com', NULL, 'Dentist checkup', 'Berkeley Dental Care', 15, time '15:30', time '16:15', false, 'manual', 'seeddev:o-dentist'),
 
   -- Sebastian (school + activities).
-  ('sebastian@mason.io', 'c0000109-0000-4001-8001-000000000008', 'Picture day', 'Berkeley Elementary', 3, time '08:30', time '09:00', false, 'ics', 'seeddev:s-pictureday'),
-  ('sebastian@mason.io', 'c0000109-0000-4001-8001-000000000008', 'Early dismissal', 'Berkeley Elementary', 8, time '12:00', time '12:30', false, 'ics', 'seeddev:s-earlyout'),
-  ('sebastian@mason.io', NULL, 'Swim lesson', 'Berkeley Y', 1, time '16:30', time '17:15', false, 'manual', 'seeddev:s-swim-1'),
-  ('sebastian@mason.io', NULL, 'Swim lesson', 'Berkeley Y', 8, time '16:30', time '17:15', false, 'manual', 'seeddev:s-swim-2'),
-  ('sebastian@mason.io', NULL, 'Playdate with Theo', 'Home', 5, time '15:30', time '17:30', false, 'manual', 'seeddev:s-playdate'),
-  ('sebastian@mason.io', NULL, 'Cub Scouts', 'Live Oak Park', 11, time '17:00', time '18:30', false, 'manual', 'seeddev:s-scouts'),
+  ('thisliamhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000008', 'Picture day', 'Berkeley Elementary', 3, time '08:30', time '09:00', false, 'ics', 'seeddev:s-pictureday'),
+  ('thisliamhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000008', 'Early dismissal', 'Berkeley Elementary', 8, time '12:00', time '12:30', false, 'ics', 'seeddev:s-earlyout'),
+  ('thisliamhyatt@gmail.com', NULL, 'Swim lesson', 'Berkeley Y', 1, time '16:30', time '17:15', false, 'manual', 'seeddev:s-swim-1'),
+  ('thisliamhyatt@gmail.com', NULL, 'Swim lesson', 'Berkeley Y', 8, time '16:30', time '17:15', false, 'manual', 'seeddev:s-swim-2'),
+  ('thisliamhyatt@gmail.com', NULL, 'Playdate with Theo', 'Home', 5, time '15:30', time '17:30', false, 'manual', 'seeddev:s-playdate'),
+  ('thisliamhyatt@gmail.com', NULL, 'Cub Scouts', 'Live Oak Park', 11, time '17:00', time '18:30', false, 'manual', 'seeddev:s-scouts'),
 
   -- Family (shared) — timed outings.
   (NULL, 'c0000109-0000-4001-8001-000000000009', 'Costco run', 'Richmond', 6, time '09:00', time '10:30', false, 'manual', 'seeddev:fam-costco'),
@@ -229,10 +229,10 @@ SELECT m, src::uuid, title, loc,
        ((((now() AT TIME ZONE 'America/Los_Angeles')::date + d) + ca) AT TIME ZONE 'America/Los_Angeles'),
        true, rsvp::teamsnap_rsvp_status
 FROM (VALUES
-  ('oscar@mason.io', 'c0000109-0000-4001-8001-000000000005', 'Soccer Game vs Lightning United', 'Gilman Fields', 6, time '10:00', time '11:30', time '09:15', 'Lightning United', 'no_reply', 'seeddev:o-game1'),
-  ('oscar@mason.io', 'c0000109-0000-4001-8001-000000000005', 'Soccer Game vs Earthquakes Jr', 'Albany High', 13, time '09:00', time '10:30', time '08:15', 'Earthquakes Jr', 'going', 'seeddev:o-game2'),
-  ('sebastian@mason.io', 'c0000109-0000-4001-8001-000000000007', 'Baseball Game vs Oakland Oaks', 'Bushrod Park', 7, time '11:00', time '13:00', time '10:00', 'Oakland Oaks', 'no_reply', 'seeddev:s-game1'),
-  ('sebastian@mason.io', 'c0000109-0000-4001-8001-000000000007', 'Baseball Game vs Richmond Rockets', 'Nicholl Park', 14, time '12:00', time '14:00', time '11:00', 'Richmond Rockets', 'going', 'seeddev:s-game2')
+  ('kadenhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000005', 'Soccer Game vs Lightning United', 'Gilman Fields', 6, time '10:00', time '11:30', time '09:15', 'Lightning United', 'no_reply', 'seeddev:o-game1'),
+  ('kadenhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000005', 'Soccer Game vs Earthquakes Jr', 'Albany High', 13, time '09:00', time '10:30', time '08:15', 'Earthquakes Jr', 'going', 'seeddev:o-game2'),
+  ('thisliamhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000007', 'Baseball Game vs Oakland Oaks', 'Bushrod Park', 7, time '11:00', time '13:00', time '10:00', 'Oakland Oaks', 'no_reply', 'seeddev:s-game1'),
+  ('thisliamhyatt@gmail.com', 'c0000109-0000-4001-8001-000000000007', 'Baseball Game vs Richmond Rockets', 'Nicholl Park', 14, time '12:00', time '14:00', time '11:00', 'Richmond Rockets', 'going', 'seeddev:s-game2')
 ) v(m, src, title, loc, d, cs, ce, ca, opp, rsvp, ext);
 
 -- The family-wide ("everyone") calendar concept was removed; every event belongs

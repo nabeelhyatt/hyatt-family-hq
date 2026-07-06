@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Award,
@@ -16,7 +15,6 @@ import {
   ListFilter,
   Loader2,
   MapPin,
-  MessageSquareText,
   MoreHorizontal,
   Music,
   Pencil,
@@ -38,9 +36,8 @@ import type {
 import { TIMELINE_CATEGORIES } from "@/lib/types";
 import { CATEGORY_LABEL, personColor } from "@/lib/timeline/config";
 import { EntryModal } from "@/components/timeline/entry-modal";
-import { ReflectOnEventButton } from "@/components/timeline/reflect-on-event-button";
 import { deleteTimelineEntry, deleteTimelinePhoto } from "@/lib/timeline/actions";
-import { MAX_UPLOAD_BYTES, detectMediaType, uploadTimelineMedia } from "@/lib/journal/photo-upload";
+import { MAX_UPLOAD_BYTES, detectMediaType, uploadTimelineMedia } from "@/lib/media/photo-upload";
 
 // A representative icon per category — drawn on the axis (person-colored) and
 // shown in the category dropdown as a legend.
@@ -734,12 +731,6 @@ function EventColumn({
           : ""}
       </span>
       <Names subjects={e.subjects} />
-      {e.linkedCount > 0 && (
-        <span className="inline-flex items-center gap-0.5 text-muted-foreground/70" title={`${e.linkedCount} related post${e.linkedCount > 1 ? "s" : ""}`}>
-          <MessageSquareText className="h-3 w-3" />
-          {e.linkedCount}
-        </span>
-      )}
     </div>
   );
 
@@ -987,10 +978,6 @@ function EntryPopover({
       )}
 
       <div className="mt-3 flex items-center gap-2">
-        <ReflectOnEventButton
-          timelineEntryId={e.id}
-          label={e.linkedPosts.length > 0 ? "Reflect again" : "Reflect on this"}
-        />
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
@@ -1014,28 +1001,6 @@ function EntryPopover({
         />
       </div>
       <p className="mt-1.5 text-[11px] text-muted-foreground">Or drop a photo on the event to attach it.</p>
-
-      {e.linkedPosts.length > 0 && (
-        <div className="mt-4 border-t border-border pt-3">
-          <h4 className="mb-2 text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
-            Related posts
-          </h4>
-          <ul className="space-y-1">
-            {e.linkedPosts.map((p) => (
-              <li key={p.id}>
-                <Link href={`/journal/${p.id}`} className="block rounded px-1 py-1 hover:bg-accent">
-                  <div className="truncate text-sm text-foreground">
-                    {p.title || p.summary || "Journal entry"}
-                  </div>
-                  <div className="text-[11px] text-muted-foreground">
-                    {[p.authorName, p.entry_date].filter(Boolean).join(" · ")}
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }

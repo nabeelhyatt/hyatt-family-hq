@@ -40,8 +40,8 @@ export default async function LoginPage({
 
           <div className="space-y-4">
             <p className="text-sm text-center text-muted-foreground">
-              Sign in with your family Google account — journal, reading,
-              calendar, and everything else under one roof.
+              Sign in with your family Google account — calendar, todos, and
+              everything else under one roof.
             </p>
             <GoogleSignIn forceConsent={consent === "1"} />
           </div>

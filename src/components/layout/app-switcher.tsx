@@ -5,22 +5,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BookOpen,
   CalendarDays,
   CalendarRange,
   Check,
   ChevronDown,
-  CircleDot,
-  Coins,
-  Dumbbell,
-  GraduationCap,
   House,
   ListTodo,
   Menu,
-  Music,
-  NotebookPen,
   Settings,
-  Users,
 } from "lucide-react";
 import { useAppNav } from "@/components/layout/app-header";
 import { buttonVariants } from "@/components/ui/button";
@@ -56,39 +48,11 @@ const APPS: App[] = [
     icon: House,
   },
   {
-    href: "/family",
-    label: "Family",
-    match: "/family",
-    description: "Shared journal feed",
-    icon: Users,
-  },
-  {
     href: "/todos",
     label: "Todos",
     match: "/todos",
     description: "Family to-do lists",
     icon: ListTodo,
-  },
-  {
-    href: "/reader",
-    label: "Reader",
-    match: "/reader",
-    description: "Books & reading",
-    icon: BookOpen,
-  },
-  {
-    href: "/journal",
-    label: "Journal",
-    match: "/journal",
-    description: "Your personal journal",
-    icon: NotebookPen,
-  },
-  {
-    href: "/bucks",
-    label: "Mason Bucks",
-    match: "/bucks",
-    description: "Earn & spend family currency",
-    icon: Coins,
   },
   {
     href: "/timeline",
@@ -104,39 +68,7 @@ const APPS: App[] = [
     description: "Schedules & activities",
     icon: CalendarRange,
   },
-  {
-    href: "/assignments",
-    label: "Assignments",
-    match: "/assignments",
-    description: "School homework & due dates",
-    icon: GraduationCap,
-  },
-  {
-    href: "/workouts",
-    label: "Workouts",
-    match: "/workouts",
-    description: "Training log & progress",
-    icon: Dumbbell,
-  },
-  {
-    href: "/baseball",
-    label: "Baseball",
-    match: "/baseball",
-    description: "Season-by-season stats",
-    icon: CircleDot,
-  },
 ];
-
-// The practice book is owner-only (gated in middleware), so it only joins the
-// list for the owner. It runs its own header, so picking it leaves this switcher
-// behind — there's no "current app" of practice to land back on here.
-const PRACTICE_APP: App = {
-  href: "/practice",
-  label: "Practice Log",
-  match: "/practice",
-  description: "Track your practice",
-  icon: Music,
-};
 
 // Settings is its own global "app" — settings for every app collect here as we
 // add them. It lives in the footer rather than the app list, but it's still a
@@ -163,7 +95,11 @@ function isActive(pathname: string, match: string): boolean {
  */
 export function AppSwitcher({ isOwner = false }: { isOwner?: boolean }) {
   const pathname = usePathname();
-  const apps = isOwner ? [...APPS, PRACTICE_APP] : APPS;
+  // isOwner has no app-list effect since the practice book (owner-only) was
+  // removed; kept as a prop since callers pass real role data and the
+  // Settings footer entry may want it again.
+  void isOwner;
+  const apps = APPS;
   // Settings is a matchable destination too, so the trigger reads "Settings"
   // while you're in it — even though it renders in the footer, not the list.
   const current =

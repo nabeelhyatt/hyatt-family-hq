@@ -3,7 +3,7 @@
 import { AlertTriangle, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatTimeRange, mutedColor } from "@/lib/calendar/calendar-utils";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import type { CalendarEvent, TeamsnapRsvp } from "@/lib/calendar/types";
 
 export interface EventAttendee {

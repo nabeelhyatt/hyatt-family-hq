@@ -21,7 +21,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import { AssigneePicker } from "@/components/todos/assignee-picker";
 import { firstNameOf } from "@/components/todos/member-name";
 import { WhenPicker } from "@/components/todos/when-picker";

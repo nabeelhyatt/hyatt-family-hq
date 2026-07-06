@@ -23,7 +23,7 @@ import {
   type Placed,
 } from "@/lib/calendar/grid-layout";
 import { DutyGlyphs, type EventDisplay } from "./event-card";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import {
   Popover,
   PopoverContent,

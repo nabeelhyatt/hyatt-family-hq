@@ -17,7 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import { TodoNotesEditor } from "@/components/todos/todo-notes-editor";
 import { WhenPicker } from "@/components/todos/when-picker";
 import { isImageFile, uploadTaskAttachment } from "@/lib/todos/attachment-upload";

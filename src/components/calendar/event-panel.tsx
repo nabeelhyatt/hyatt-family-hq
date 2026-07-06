@@ -59,7 +59,7 @@ import {
   type LocationSuggestion,
 } from "@/app/(calendar)/calendar/actions";
 import { TeamsnapAttendance } from "./team-availability";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import { cn } from "@/lib/utils";
 
 // A not-yet-saved event: the block already drawn on the grid while the panel

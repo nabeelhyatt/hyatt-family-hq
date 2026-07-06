@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import type { TodoMember } from "@/lib/todos/types";
 import { firstNameOf } from "@/components/todos/member-name";
 import { cn } from "@/lib/utils";

@@ -24,7 +24,7 @@ import {
   type Placed,
 } from "@/lib/calendar/grid-layout";
 import { DutyGlyphs, type EventDisplay } from "./event-card";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import { cn } from "@/lib/utils";
 
 // The week as seven shared day columns on one time axis — the day view, fanned

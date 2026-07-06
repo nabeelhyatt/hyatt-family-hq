@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-// Single source of truth for each "app" inside Mason Family HQ — the name and
-// icon iOS/Android use when you add a section to the home screen. From /workouts
-// you install "Workouts" with the dumbbell tile; from /reader you install
-// "Reader" with the book tile, and so on.
+// Single source of truth for each "app" inside Hyatt Family HQ — the name and
+// icon iOS/Android use when you add a section to the home screen. From /todos
+// you install "Todos" with the checklist tile, from /calendar the calendar
+// tile, and so on.
 //
 // Three consumers read this list:
 //   • each route group's layout, via appMetadata() — sets the home-screen name
@@ -29,18 +29,10 @@ export type PwaApp = {
 };
 
 export const PWA_APPS: PwaApp[] = [
-  { key: "home", name: "Family HQ", shortName: "Family HQ", startUrl: "/home", pageTitle: "Mason Family HQ" },
-  { key: "family", name: "Family", shortName: "Family", startUrl: "/family", pageTitle: "Family" },
+  { key: "home", name: "Family HQ", shortName: "Family HQ", startUrl: "/home", pageTitle: "Hyatt Family HQ" },
   { key: "todos", name: "Todos", shortName: "Todos", startUrl: "/todos", pageTitle: "Todos" },
-  { key: "reader", name: "Reader", shortName: "Reader", startUrl: "/reader", pageTitle: "Reader" },
-  { key: "journal", name: "Journal", shortName: "Journal", startUrl: "/journal", pageTitle: "Journal" },
-  { key: "bucks", name: "Mason Bucks", shortName: "Bucks", startUrl: "/bucks", pageTitle: "Mason Bucks" },
   { key: "timeline", name: "Timeline", shortName: "Timeline", startUrl: "/timeline", pageTitle: "Timeline" },
   { key: "calendar", name: "Calendar", shortName: "Calendar", startUrl: "/calendar", pageTitle: "Calendar" },
-  { key: "assignments", name: "Assignments", shortName: "Assignments", startUrl: "/assignments", pageTitle: "Assignments" },
-  { key: "workouts", name: "Workouts", shortName: "Workouts", startUrl: "/workouts", pageTitle: "Workouts" },
-  { key: "practice", name: "Practice Log", shortName: "Practice", startUrl: "/practice", pageTitle: "Practice Log" },
-  { key: "baseball", name: "Baseball", shortName: "Baseball", startUrl: "/baseball", pageTitle: "Baseball" },
 ];
 
 const byKey = new Map(PWA_APPS.map((app) => [app.key, app]));

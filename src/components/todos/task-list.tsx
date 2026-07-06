@@ -52,7 +52,7 @@ import {
 } from "@/components/todos/task-row";
 import type { UploadingAttachment } from "@/components/todos/task-attachments";
 import { MiniCalendar, WhenMenu } from "@/components/todos/when-picker";
-import { MemberAvatar } from "@/components/journal/member-avatar";
+import { MemberAvatar } from "@/components/family/member-avatar";
 import { inOpenOverlay, isTypingTarget } from "@/lib/todos/keyboard";
 import {
   Dialog,

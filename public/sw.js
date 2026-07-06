@@ -1,4 +1,4 @@
-// Mason Family HQ service worker — the "instant chrome" app shell.
+// Hyatt Family HQ service worker — the "instant chrome" app shell.
 //
 // With no service worker, every cold PWA launch is fully network-bound: iOS boots
 // a fresh webview, hits the network, waits on the auth middleware, and only then
