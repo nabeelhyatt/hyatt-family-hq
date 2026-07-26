@@ -13,7 +13,7 @@ export function GET(request: Request) {
   const manifest = {
     name: app.name,
     short_name: app.shortName,
-    description: "The Mason family's private home base",
+    description: "The Hyatt family's private home base",
     start_url: app.startUrl,
     scope: "/",
     display: "standalone",

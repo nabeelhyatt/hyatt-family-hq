@@ -20,10 +20,10 @@ export default async function LoginPage({
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Mason Family HQ
+            Hyatt Family HQ
           </h1>
           <p className="text-sm text-muted-foreground">
-            The Mason family&apos;s private home base
+            The Hyatt family&apos;s private home base
           </p>
         </CardHeader>
         <CardContent>
